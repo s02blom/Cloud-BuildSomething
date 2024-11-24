@@ -1,29 +1,19 @@
 from flask import Flask
-from flask import request
 
+print("Debug print")
 app = Flask(__name__)
 
-@app.route('/')
-def frontpage():
-    return "Hello, world"
+def register_blueprints(app):
+    from . import routes
+    print("Registering blueprints...")
+    app.register_blueprint(routes.blueprint)
+    print("Registered blueprints:")
+    print(app.url_map)
+    # app.add_url_rule('/', endpoint="index")
 
-@app.route('/add', methods=['POST'])
-def add(description):
-    pass
-
-@app.route('/check', methods=['PATCH'])
-def check(id):
-    pass
-
-@app.route('/uncheck', methods=['PATCH'])
-def uncheck(id):
-    pass
-
-@app.route('/fetch', methods=['GET'])
-def get():
-    pass
+register_blueprints(app)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
-
+    app.run(debug=True, host="0.0.0.0", port=8000)
+    # register_blueprints(app)
 
