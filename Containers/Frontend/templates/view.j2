@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<title>Your ToDo list</title>
+<!-- Style cheet -->
+
+<!-- Head -->
+<header>
+</header>
+
+<!-- Body -->
+<body>
+    <h2>ToDo list</h2>
+    <table>
+        <tr>
+            <th>Status</th>
+            <th>Description</th>
+        </tr>
+        {% for item in todo %}
+            {{ if item[0] is True }}
+                <tr>[x]</tr>
+            {{ else }}
+                <tr>[ ]</tr>
+            <tr>{{ item[1] }}</tr>
+        {% endfor %}
+    </table>
+</body>
