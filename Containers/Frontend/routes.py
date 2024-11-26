@@ -10,11 +10,10 @@ def frontpage():
 def add():
     description = request.form.get("description")
     # Send request to backend
-    # Redirect to /
     return redirect(url_for("main.frontpage"), code=302)
 
 @blueprint.route('/switch_status', methods=['POST'])
 def switch_status():
     description = request.form.get("selected_task")
-    #return redirect(url_for('main.frontpage'), code= 302)
-    return 200
+    # Send request to backend
+    return redirect(url_for('main.frontpage'), code= 302)
