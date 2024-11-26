@@ -4,4 +4,4 @@
 ## Run
 `cd Containers/Frontend`
 `docker build -t cloud .`
-`docker run cloud`
+`docker run -p 5000:5000 cloud`
