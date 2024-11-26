@@ -28,10 +28,10 @@
         </table>
     </div>
     <div class="box">
-        <form method="POST", action="">
+        <form method="POST", action=" {{ url_for('main.add')}} ">
             <h3>Add item</h3>
-            {{New_todo.csrf_token}}
-            {{New_todo.description()}}
+            <label for="description">ToDo:</label>
+            <input type="text" name="description"><br>
             <button type="submit">Submit</button>
         </form>
     </div>

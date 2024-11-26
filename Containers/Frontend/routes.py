@@ -1,20 +1,16 @@
 from flask import (Flask, Blueprint, render_template, request)
-from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms.validators import DataRequired
-
 
 blueprint = Blueprint("main", __name__)
 
 @blueprint.route('/', methods=['GET'])
 def frontpage():
     lst = [[True, "Hello"], [False, "World"]]
-    new_todo = New_todo()
-    return render_template("view.j2", todo=lst, New_todo=new_todo)
+    return render_template("view.j2", todo=lst)
 
 @blueprint.route('/add', methods=['POST'])
-def add(description):
-    return "Hello, add"
+def add():
+    description = request.form.get("description")
+    return f"Hello, add: {description}"
 
 @blueprint.route('/check', methods=['PATCH'])
 def check(id):
@@ -27,6 +23,3 @@ def uncheck(id):
 @blueprint.route('/fetch', methods=['GET'])
 def get():
     pass
-
-class New_todo(FlaskForm):
-    description = StringField("description", validators=[DataRequired()])
