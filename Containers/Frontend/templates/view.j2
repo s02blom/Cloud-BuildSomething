@@ -14,6 +14,7 @@
             <tr>
                 <th>Status</th>
                 <th>Description</th>
+                <th>Change</th>
             </tr>
             {% for item in todo %}
             <tr>
@@ -25,7 +26,7 @@
                 <td>{{ item[1] }}</td>
                 {# <td><input type="hidden" name="posted_description" value="{{ item[1] }}">{{ item[1] }}</td> #}
                 <td>
-                    <form method="PATCH" action="{{ url_for('main.switch_status')}}">
+                    <form method="POST" action="{{ url_for('main.switch_status')}}">
                         <button type="submit" value="{{ item[1] }}" name="selected_task">
                         {% if item[0] == True %}
                             Undo :(
