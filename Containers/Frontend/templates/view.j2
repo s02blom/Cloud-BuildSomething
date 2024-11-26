@@ -15,11 +15,14 @@
             <th>Description</th>
         </tr>
         {% for item in todo %}
-            {{ if item[0] is True }}
-                <tr>[x]</tr>
-            {{ else }}
-                <tr>[ ]</tr>
-            <tr>{{ item[1] }}</tr>
+        <tr>
+            {% if item[0] == True %}
+                <td>[x]</td>
+            {% else %}
+                <td>[ ]</td>
+            {% endif %}
+            <td>{{ item[1] }}</td>
+        </tr>
         {% endfor %}
     </table>
 </body>

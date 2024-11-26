@@ -4,8 +4,8 @@ blueprint = Blueprint("main", __name__)
 
 @blueprint.route('/', methods=['GET'])
 def frontpage():
-    lst = []
-    return render_template("view", todo=lst)
+    lst = [[True, "Hello"], [False, "World"]]
+    return render_template("view.j2", todo=lst)
 
 @blueprint.route('/add', methods=['POST'])
 def add(description):
