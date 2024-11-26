@@ -13,7 +13,8 @@ def add():
     # Redirect to /
     return redirect(url_for("main.frontpage"), code=302)
 
-@blueprint.route('/switch_status', methods=['PATCH'])
+@blueprint.route('/switch_status', methods=['POST'])
 def switch_status():
-    description = request.form.get("posted_description")
-    return f"Switch status of {description}"
+    description = request.form.get("selected_task")
+    #return redirect(url_for('main.frontpage'), code= 302)
+    return 200
