@@ -1,0 +1,53 @@
+body {
+    background-color: #F7EFD6;
+}
+
+h2{
+    text-align: center;
+}
+
+.box{
+    position: relative;
+    width: 30%;
+    min-height: 100px;
+    max-height: 1000px;
+    border: 2px solid black;
+    margin: auto;
+    /*padding-inline: 10%;*/
+}
+
+.button{
+    position: absolute;
+    right :2%;
+    bottom: 5%;
+}
+
+.sql{
+    position: relative;
+    width: 30%;
+    max-height: 350px;
+    border: 2px solid black;
+}
+
+table{
+    border-collapse: collapse;
+    background-color: white;
+    width: 100%;
+}
+
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+tr:hover{
+    background-color: #a7bccc;
+}
+
+th{
+    text-align: left;
+}
+
+hr{
+    width: 90%;
+    border-width: 3px;
+}

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <title>Your ToDo list</title>
-<!-- Style cheet -->
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 
 <!-- Head -->
 <header>
@@ -9,20 +9,30 @@
 <!-- Body -->
 <body>
     <h2>ToDo list</h2>
-    <table>
-        <tr>
-            <th>Status</th>
-            <th>Description</th>
-        </tr>
-        {% for item in todo %}
-        <tr>
-            {% if item[0] == True %}
-                <td>[x]</td>
-            {% else %}
-                <td>[ ]</td>
-            {% endif %}
-            <td>{{ item[1] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="box">
+        <table>
+            <tr>
+                <th>Status</th>
+                <th>Description</th>
+            </tr>
+            {% for item in todo %}
+            <tr>
+                {% if item[0] == True %}
+                    <td>[x]</td>
+                {% else %}
+                    <td>[ ]</td>
+                {% endif %}
+                <td>{{ item[1] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="box">
+        <form method="POST", action="">
+            <h3>Add item</h3>
+            {{New_todo.csrf_token}}
+            {{New_todo.description()}}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
