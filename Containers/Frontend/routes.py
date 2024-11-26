@@ -1,5 +1,4 @@
-from flask import (Flask, Blueprint, render_template, request)
-
+from flask import (Flask, Blueprint, render_template, request, redirect, url_for)
 blueprint = Blueprint("main", __name__)
 
 @blueprint.route('/', methods=['GET'])
@@ -10,16 +9,11 @@ def frontpage():
 @blueprint.route('/add', methods=['POST'])
 def add():
     description = request.form.get("description")
-    return f"Hello, add: {description}"
+    # Send request to backend
+    # Redirect to /
+    return redirect(url_for("main.frontpage"), code=302)
 
-@blueprint.route('/check', methods=['PATCH'])
-def check(id):
-    pass
-
-@blueprint.route('/uncheck', methods=['PATCH'])
-def uncheck(id):
-    pass
-
-@blueprint.route('/fetch', methods=['GET'])
-def get():
-    pass
+@blueprint.route('/switch_status', methods=['PATCH'])
+def switch_status():
+    description = request.form.get("posted_description")
+    return f"Switch status of {description}"
