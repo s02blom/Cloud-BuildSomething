@@ -1,0 +1,6 @@
+services: 
+  frontend:
+    build: ./Frontend/
+    ports: ['5000:5000']
+    volumes: ['./Frontend/:/app']
+    
