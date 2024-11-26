@@ -1,16 +1,14 @@
 from flask import Flask
-
-print("Debug print")
-app = Flask(__name__)
+from . import create_app
 
 def register_blueprints(app):
     from . import routes
     print("Registering blueprints...")
     app.register_blueprint(routes.blueprint)
-    print("Registered blueprints:")
-    print(app.url_map)
-    # app.add_url_rule('/', endpoint="index")
+    # print("Registered blueprints:")
+    # print(app.url_map)
 
+app = create_app()
 register_blueprints(app)
 
 if __name__ == "__main__":
