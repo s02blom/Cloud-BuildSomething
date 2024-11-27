@@ -1,6 +1,25 @@
 services: 
   frontend:
     build: ./Frontend/
-    ports: ['5000:5000']
+    ports: ['8000:8000']
     volumes: ['./Frontend/:/app']
-    
+    environment: 
+      FRONTEND_PORTS: 8000
+      BACKEND_URL: ""
+  
+  backend:
+    build: ./Backend/
+    ports: ['8001:8001']
+    volumes: [./Backend/:/app]
+    environment:
+      BACKEND_PORTS: 8001
+      DATABASE: ""
+
+  mysql_db:
+    hostname: mysql_db
+    image: mysql/mysql-server:latest
+    environment:
+      MYSQL_DATABASE: ""
+    volumes:
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+      
