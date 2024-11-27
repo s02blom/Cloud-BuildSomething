@@ -1,33 +1,42 @@
 import os
 import mysql.connector as Connector
 from mysql.connector import errorcode
+from flask import current_app, g
 
-def get_connection():
-    try: 
-        connection =  Connector.connect( user = os.environ.get('DATABSE_USER'),
-                                        password = os.environ.get('DATABASE_PASSWORD'),
-                                        database = os.environ.get('DATABASE_DB'),
-                                        port = os.environ.get('DATABASE_PORT')
-        )
-    except connection.Error as err:
-        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-            print("Something is wrong with your user name or password") #Ought to be replaced with some logging tool?
-        elif err.errno == errorcode.ER_BAD_DB_ERROR:
-            print("Database does not exist")
-        else:
-            print(err)
-    return connection
+def get_connection(set_autocommit = False):
+    with current_app.app_context():
+        try: 
+            g.db =  Connector.connect( host = os.environ.get('DATABASE_HOST'), 
+                                            user = os.environ.get('DATABSE_USER'),
+                                            password = os.environ.get('DATABASE_PASSWORD'),
+                                            database = os.environ.get('DATABASE_DB'),
+                                            port = os.environ.get('DATABASE_PORT')
+            )
+        except Connector.Error as err:
+            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+                print("Something is wrong with your user name or password") #Ought to be replaced with some logging tool?
+            elif err.errno == errorcode.ER_BAD_DB_ERROR:
+                print("Database does not exist")
+            else:
+                print(err)
+        if (set_autocommit):
+            g.db.autocommit = set_autocommit
+        
+        return g.db
 
 def close_connection(conn):
-    if conn is not None:
-        conn.close()
+    db = g.pop("db", None)
+    if db is not None:
+        db.close()
 
 def init_database():
+    print("Initializing database...")
     db = os.environ.get('DATABASE_DB')
     database_start_script = f"""
     CREATE DATABASE IF NOT EXISTS {db};
     USE {db};
-    
+    """
+    init_table = """"
     CREATE TABLE IF NOT EXIST ToDo
     (
         ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -37,6 +46,13 @@ def init_database():
     """
     connection = get_connection()
     with connection.cursor() as cursor:
-        cursor.execute(database_start_script, multi=True)
+        cursor.execute(init_table, multi=True)
         cursor.fetchall()
+    with connection.cursor() as cursor:
+        cursor.execute("SHOW DATABASES;")
+        databases = cursor.fetchall()
+        print(databases)
+        cursor.execute("SHOW TABLES;")
+        tables = cursor.fetchall()
+        print(tables)
     close_connection(conn=connection)

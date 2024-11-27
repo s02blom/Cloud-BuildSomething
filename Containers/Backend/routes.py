@@ -1,5 +1,5 @@
 from flask import (Flask, Blueprint, request)
-import db
+from . import db
 blueprint = Blueprint("main", __name__)
 
 @blueprint.route('/todo', methods=['GET'])
@@ -8,7 +8,7 @@ def get_all():
     SELECT * FROM ToDo;
     """
     conn = db.get_connection()
-    with conn.cursor as cursor:
+    with conn.cursor() as cursor:
         cursor.execute(sql_querie)
         todo = cursor.fetchall()
     return todo

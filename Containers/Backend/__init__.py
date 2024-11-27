@@ -21,4 +21,5 @@ def create_app(test_config=None):
         pass
 
     print("Flask instance created!")
+    app.app_context().push()
     return app

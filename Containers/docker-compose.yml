@@ -8,12 +8,15 @@ services:
       BACKEND_URL: ""
   
   backend:
+    depends_on:
+      - mysql_db
+    restart: on-failure:10
     build: ./Backend/
     ports: ['8001:8001']
-    volumes: [./Backend/:/app]
+    volumes: [./Backend/:/server]
     environment:
       FLASK_RUN_PORT: 8001
-      DATABASE_HOST: 3306
+      DATABASE_HOST: mysql_db
       DATABSE_USER: not_root
       DATABASE_PASSWORD: example
       DATABASE_PORT: 3306
@@ -25,7 +28,12 @@ services:
     environment:
       MYSQL_DATABASE: "Notebook"
       MYSQL_ROOT_PASSWORD: example
+      MYSQL_USER: not_root
+      MYSQL_PASSWORD: example
+      MYSQL_ROOT_HOST: "%"  # Allows other network entities to connect to the database
     volumes:
       - ./docker/mysql/init:/docker-entrypoint-initdb.d
     expose:
       - 3306
+    ports:
+      - 3306:3306
