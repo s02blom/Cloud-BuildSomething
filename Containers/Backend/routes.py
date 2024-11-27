@@ -32,10 +32,10 @@ def insert():
 
 @blueprint.route('/change_status', methods=['POST'])
 def change_status():
-    description = request.json("selected_task")
+    id = request.get_json()
     sql_get_item = """
     SELECT * FROM ToDo
-    WHERE description = (%(description)s)
+    WHERE id = (%(description)s)
     """
     sql_update_status = """
     UPDATE ToDo
@@ -43,15 +43,15 @@ def change_status():
     WHERE id = (%(id)s)
     """
     get_item_helper = {
-        "description": description        
+        "description": id        
     }
     conn = db.get_connection(True)
     with conn.cursor() as cursor:
-        cursor.execute(sql_get_item, description)
+        cursor.execute(sql_get_item, get_item_helper)
         row = cursor.fetchall()
-        update_status_helper = {
-            "status": row['status'],
-            "id": row['id']
+        update_status_helper = { 
+            "status": not row[0][1],
+            "id": row[0][0]
         }
-        cursor.execute(sql_update_status, not row['status'], row['id'])
-    return 200
+        cursor.execute(sql_update_status, update_status_helper)
+    return jsonify(success=True)
