@@ -9,4 +9,4 @@ ENV FLASK_RUN_PORT 5001
 COPY . .
 EXPOSE $FLASK_RUN_PORT
 
-ENTRYPOINT ["flask", "--app", "app", "run", "--debug", "--host=0.0.0.0"]
+ENTRYPOINT ["flask", "--app", "server", "run", "--debug", "--host=0.0.0.0"]

@@ -13,13 +13,18 @@ services:
     volumes: [./Backend/:/app]
     environment:
       FLASK_RUN_PORT: 8001
-      DATABASE: ""
+      DATABASE_HOST: 3306
+      DATABSE_USER: not_root
+      DATABASE_PASSWORD: example
+      DATABASE_PORT: 3306
+      DATABASE_DB: "Notebook"
 
   mysql_db:
     hostname: mysql_db
     image: mysql/mysql-server:latest
     environment:
-      MYSQL_DATABASE: ""
+      MYSQL_DATABASE: "Notebook"
+      MYSQL_ROOT_PASSWORD: example
     volumes:
       - ./docker/mysql/init:/docker-entrypoint-initdb.d
     expose:
