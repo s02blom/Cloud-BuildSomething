@@ -13,7 +13,8 @@ services:
       - mysql_db
     restart: on-failure:10
     build: ./Backend/
-    ports: ['8001:8001']
+    expose:
+      - 8001
     volumes: [./Backend/:/server]
     environment:
       FLASK_RUN_PORT: 8001
@@ -36,5 +37,3 @@ services:
       - ./docker/mysql/init:/docker-entrypoint-initdb.d
     expose:
       - 3306
-    ports:
-      - 3306:3306
