@@ -1,3 +1,12 @@
 FROM python:3.10-slim
 
-CMD echo Hello from the Backend
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
+ENV FLASK_RUN_PORT 5001
+COPY . .
+EXPOSE $FLASK_RUN_PORT
+
+ENTRYPOINT ["flask", "--app", "app", "run", "--debug", "--host=0.0.0.0"]

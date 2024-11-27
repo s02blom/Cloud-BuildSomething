@@ -4,7 +4,7 @@ services:
     ports: ['8000:8000']
     volumes: ['./Frontend/:/app']
     environment: 
-      FRONTEND_PORTS: 8000
+      FLASK_RUN_PORT: 8000
       BACKEND_URL: ""
   
   backend:
@@ -12,7 +12,7 @@ services:
     ports: ['8001:8001']
     volumes: [./Backend/:/app]
     environment:
-      BACKEND_PORTS: 8001
+      FLASK_RUN_PORT: 8001
       DATABASE: ""
 
   mysql_db:
@@ -22,4 +22,5 @@ services:
       MYSQL_DATABASE: ""
     volumes:
       - ./docker/mysql/init:/docker-entrypoint-initdb.d
-      
+    expose:
+      - 3306
