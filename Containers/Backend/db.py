@@ -36,12 +36,13 @@ def init_database():
     CREATE DATABASE IF NOT EXISTS {db};
     USE {db};
     """
-    init_table = """"
-    CREATE TABLE IF NOT EXIST ToDo
+    init_table = """
+    CREATE TABLE IF NOT EXISTS ToDo
     (
-        ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        Status BOOL DEFAULT FALSE,
-        Description TEXT
+        ID INTEGER NOT NULL AUTO_INCREMENT,
+        status BOOL NOT NULL DEFAULT FALSE,
+        description TEXT,
+        PRIMARY KEY (ID)
     );
     """
     connection = get_connection()

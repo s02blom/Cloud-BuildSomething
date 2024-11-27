@@ -17,7 +17,7 @@ def get_all():
 def insert():
     description = request.json("description")
     sql_querie = """
-    INSERT INTO ToDo (Description) VALUES
+    INSERT INTO ToDo (description) VALUES
     (%(description)s)
     """
     conn = db.get_connection()
