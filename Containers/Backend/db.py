@@ -19,11 +19,6 @@ def get_connection():
     return connection
 
 def close_connection(conn):
-    """
-    Connection, it does stuff...
-    
-    :param conn: Itc connects stuff
-    """
     if conn is not None:
         conn.close()
 
