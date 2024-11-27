@@ -31,11 +31,6 @@ def close_connection(conn):
 
 def init_database():
     print("Initializing database...")
-    db = os.environ.get('DATABASE_DB')
-    database_start_script = f"""
-    CREATE DATABASE IF NOT EXISTS {db};
-    USE {db};
-    """
     init_table = """
     CREATE TABLE IF NOT EXISTS ToDo
     (
@@ -49,11 +44,4 @@ def init_database():
     with connection.cursor() as cursor:
         cursor.execute(init_table, multi=True)
         cursor.fetchall()
-    with connection.cursor() as cursor:
-        cursor.execute("SHOW DATABASES;")
-        databases = cursor.fetchall()
-        print(databases)
-        cursor.execute("SHOW TABLES;")
-        tables = cursor.fetchall()
-        print(tables)
     close_connection(conn=connection)

@@ -8,8 +8,6 @@ def register_blueprints(app):
     print("Registering blueprints...")
     app.register_blueprint(routes.blueprint)
 
-
-
 app = create_app()
 register_blueprints(app)
 db.init_database()
