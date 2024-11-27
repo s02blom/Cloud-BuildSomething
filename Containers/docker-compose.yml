@@ -5,7 +5,8 @@ services:
     volumes: ['./Frontend/:/app']
     environment: 
       FLASK_RUN_PORT: 8000
-      BACKEND_URL: ""
+      BACKEND: backend
+      BACKEND_PORT: 8001
   
   backend:
     depends_on:

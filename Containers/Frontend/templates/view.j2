@@ -18,17 +18,17 @@
             </tr>
             {% for item in todo %}
             <tr>
-                {% if item[0] == True %}
+                {% if item[1] == True %}
                     <td>[x]</td>
                 {% else %}
                     <td>[ ]</td>
                 {% endif %}
-                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
                 {# <td><input type="hidden" name="posted_description" value="{{ item[1] }}">{{ item[1] }}</td> #}
                 <td>
                     <form method="POST" action="{{ url_for('main.switch_status')}}">
-                        <button type="submit" value="{{ item[1] }}" name="selected_task">
-                        {% if item[0] == True %}
+                        <button type="submit" value="{{ item[0] }}" name="selected_task">
+                        {% if item[1] == True %}
                             Undo :(
                         {% else %}
                             Do :)

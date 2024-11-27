@@ -1,4 +1,4 @@
-from flask import (Flask, Blueprint, request)
+from flask import (Flask, Blueprint, request, jsonify)
 from . import db
 blueprint = Blueprint("main", __name__)
 
@@ -15,16 +15,20 @@ def get_all():
 
 @blueprint.route('/insert', methods=['POST'])
 def insert():
-    description = request.json("description")
+    description = request.get_json()
     sql_querie = """
     INSERT INTO ToDo (description) VALUES
     (%(description)s)
     """
-    conn = db.get_connection()
+    helper = {
+        "description": description
+    }
+    print(f"{description=}")
+    conn = db.get_connection(True)
     with conn.cursor() as cursor:
-        cursor.execute(sql_querie, description)
+        cursor.execute(sql_querie, helper)
         cursor.fetchall()
-    return 200
+    return jsonify(success=True)
 
 @blueprint.route('/change_status', methods=['POST'])
 def change_status():
@@ -38,9 +42,16 @@ def change_status():
     SET status = (%(status)s)
     WHERE id = (%(id)s)
     """
-    conn = db.get_connection()
+    get_item_helper = {
+        "description": description        
+    }
+    conn = db.get_connection(True)
     with conn.cursor() as cursor:
         cursor.execute(sql_get_item, description)
         row = cursor.fetchall()
+        update_status_helper = {
+            "status": row['status'],
+            "id": row['id']
+        }
         cursor.execute(sql_update_status, not row['status'], row['id'])
     return 200
