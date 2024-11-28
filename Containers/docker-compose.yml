@@ -1,6 +1,8 @@
+name: ToDoLister
 services: 
   frontend:
     build: ./Frontend/
+    image: soblbth/todo-webpage:latest
     ports: ['8000:8000']
     volumes: ['./Frontend/:/app']
     environment: 
@@ -13,6 +15,7 @@ services:
       - mysql_db
     restart: on-failure:10
     build: ./Backend/
+    image: soblbth/todo-handler:latest
     expose:
       - 8001
     volumes: [./Backend/:/server]
@@ -22,13 +25,13 @@ services:
       DATABSE_USER: not_root
       DATABASE_PASSWORD: example
       DATABASE_PORT: 3306
-      DATABASE_DB: "Notebook"
+      DATABASE_DB: Notebook
 
   mysql_db:
     hostname: mysql_db
     image: mysql/mysql-server:latest
     environment:
-      MYSQL_DATABASE: "Notebook"
+      MYSQL_DATABASE: Notebook
       MYSQL_ROOT_PASSWORD: example
       MYSQL_USER: not_root
       MYSQL_PASSWORD: example
