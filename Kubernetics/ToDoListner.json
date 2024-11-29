@@ -94,3 +94,83 @@
         }
     }
 }
+
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": 
+    {
+        "name": "backernd-pod",
+        "labels": 
+        {
+            "app": "todo-server"
+        }
+    },
+    "spec": 
+    {
+        "selector": 
+        {
+            "matchLabels":
+            {
+                "app": "todo-server"
+            }
+        },
+        "replicas": 1,
+        "restartPolicy" : "Always",
+        "template": 
+        {
+            "metadata":
+            {
+                "labels": 
+                {
+                    "app": "todo-server"
+                }
+            },
+            "spec":
+            {
+                "containers":
+                [
+                    {
+                        "name": "frontend",
+                        "image": "soblbth/todo-handler:latest",
+                        "imagePullPolicy": "Always",
+                        "env": 
+                        [
+                            {
+                                "name": "FLASK_RUN_PORT",
+                                "value": 8001
+                            },
+                            {
+                                "name": "DATABASE_HOST",
+                                "value": "Some missing ip"
+                            },
+                            {
+                                "name": "DATABASE_PORT",
+                                "value": 3306
+                            },
+                            {
+                                "name": "DATABSE_USER",
+                                "value": "not_root"
+                            },
+                            {
+                                "name": "DATABASE_PASSWORD",
+                                "value": "example"
+                            },
+                            {
+                                "name": "DATABASE_DB",
+                                "value" : "Notebook"
+                            },
+
+                        ],
+                        "ports": 
+                        [
+                            {
+                                "containerPort": 8001
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
