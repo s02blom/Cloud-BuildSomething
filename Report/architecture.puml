@@ -1,0 +1,9 @@
+@startuml architecture
+[Frontend]
+[Backend]
+database "MySQL" {
+    [ToDo table]
+}
+[Frontend] -> [Backend] : Rest api
+[Backend] -> [ToDo table] : Python library
+@enduml
