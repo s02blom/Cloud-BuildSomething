@@ -1,0 +1,65 @@
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": 
+    {
+        "name": "frontend-pod",
+        "labels": 
+        {
+            "app": "todo-website"
+        }
+    },
+    "spec": 
+    {
+        "selector": 
+        {
+            "matchLabels":
+            {
+                "app": "todo-website"
+            }
+        },
+        "replicas": 1,
+        "template": 
+        {
+            "metadata":
+            {
+                "labels": 
+                {
+                    "app": "todo-website"
+                }
+            },
+            "spec":
+            {
+                "containers":
+                [
+                    {
+                        "name": "frontend",
+                        "image": "soblbth/todo-webpage:latest",
+                        "imagePullPolicy": "Always",
+                        "env": 
+                        [
+                            {
+                                "name": "FLASK_RUN_PORT",
+                                "value": "8000"
+                            },
+                            {
+                                "name": "BACKEND",
+                                "value": "Some missing ip"
+                            },
+                            {
+                                "name": "BACKEND_PORT",
+                                "value": "And a missing port"
+                            }
+                        ],
+                        "ports": 
+                        [
+                            {
+                                "containerPort": 8000
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
