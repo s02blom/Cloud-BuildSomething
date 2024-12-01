@@ -172,3 +172,62 @@
         }
     }
 }
+
+{
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata":
+    {
+        "name": "mysql-db",
+        "lables":
+        {
+            "app": "mysql-db"
+        }
+    },
+    "spec":
+    {
+        "ports":
+        [
+            {
+                "port": 3306,
+                "targetPort": "mysql-db-port"
+            }
+        ],
+        "selector": 
+        {
+            "app": "mysql-db"
+        }
+    }
+}
+
+{
+  // Actually the mysql db here not just the service for handeling it?
+}
+
+{
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": 
+    {
+        "name": "todo-data",
+        "labels": 
+        {
+            "app": "mysql-db"
+        }
+    },
+    "spec":
+    {
+        "accessModes": 
+        [
+            "ReadWriteOnce"
+        ],
+        "storageClassName": "data",
+        "resources": 
+        {
+            "requests":
+            {
+                "storage": "10Mi"
+            }
+        }
+    }
+}
