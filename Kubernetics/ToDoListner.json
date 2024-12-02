@@ -129,7 +129,10 @@
     "spec": 
     {
         "type": "LoadBalancer",
-        "sessionAffinity": "ClientIP",
+        "selector":
+        {
+            "app": "todo-website"
+        },
         "ports": 
         [
             {
@@ -139,11 +142,7 @@
                 "protocol": "TCP",
                 "targetPort": 8000
             }
-        ],
-        "selector":
-        {
-            "app": "todo-website"
-        }
+        ]
     }
 }
 
