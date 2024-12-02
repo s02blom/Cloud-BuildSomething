@@ -1,179 +1,4 @@
 {
-    "apiVersion": "v1",
-    "kind": "Service",
-    "metadata": 
-    {
-        "name": "todo-service",
-        "labels": 
-        {
-            "app": "todo-website"
-        }
-    },
-    "spec": 
-    {
-        "type": "LoadBalancer",
-        "sessionAffinity": "ClientIP",
-        "ports": 
-        [
-            {
-                "name": "http",
-                "port": 3000,
-                "nodePort": 30001,
-                "protocol": "TCP"
-            }
-        ],
-        "selector":
-        {
-            "app": "todo-website"
-        }
-    }
-}
-
-{
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": 
-    {
-        "name": "frontend-pod",
-        "labels": 
-        {
-            "app": "todo-website"
-        }
-    },
-    "spec": 
-    {
-        "selector": 
-        {
-            "matchLabels":
-            {
-                "app": "todo-website"
-            }
-        },
-        "replicas": 1,
-        "template": 
-        {
-            "metadata":
-            {
-                "labels": 
-                {
-                    "app": "todo-website"
-                }
-            },
-            "spec":
-            {
-                "containers":
-                [
-                    {
-                        "name": "frontend",
-                        "image": "soblbth/todo-webpage:latest",
-                        "imagePullPolicy": "Always",
-                        "env": 
-                        [
-                            {
-                                "name": "FLASK_RUN_PORT",
-                                "value": "8000"
-                            },
-                            {
-                                "name": "BACKEND",
-                                "value": "Some missing ip"
-                            },
-                            {
-                                "name": "BACKEND_PORT",
-                                "value": "And a missing port"
-                            }
-                        ],
-                        "ports": 
-                        [
-                            {
-                                "containerPort": 8000
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-    }
-}
-
-{
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": 
-    {
-        "name": "backernd-pod",
-        "labels": 
-        {
-            "app": "todo-server"
-        }
-    },
-    "spec": 
-    {
-        "selector": 
-        {
-            "matchLabels":
-            {
-                "app": "todo-server"
-            }
-        },
-        "replicas": 1,
-        "template": 
-        {
-            "metadata":
-            {
-                "labels": 
-                {
-                    "app": "todo-server"
-                }
-            },
-            "spec":
-            {
-                "containers":
-                [
-                    {
-                        "name": "frontend",
-                        "image": "soblbth/todo-handler:latest",
-                        "imagePullPolicy": "Always",
-                        "env": 
-                        [
-                            {
-                                "name": "FLASK_RUN_PORT",
-                                "value": "8001"
-                            },
-                            {
-                                "name": "DATABASE_HOST",
-                                "value": "Some missing ip"
-                            },
-                            {
-                                "name": "DATABASE_PORT",
-                                "value": "3306"
-                            },
-                            {
-                                "name": "DATABSE_USER",
-                                "value": "not_root"
-                            },
-                            {
-                                "name": "DATABASE_PASSWORD",
-                                "value": "example"
-                            },
-                            {
-                                "name": "DATABASE_DB",
-                                "value" : "Notebook"
-                            }
-                        ],
-                        "ports": 
-                        [
-                            {
-                                "containerPort": 8001
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-    }
-}
-
-{
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": 
@@ -292,27 +117,174 @@
 
 {
     "apiVersion": "v1",
-    "kind": "PersistentVolumeClaim",
+    "kind": "Service",
     "metadata": 
     {
-        "name": "todo-data",
+        "name": "todo-service",
         "labels": 
         {
-            "app": "mysql-db"
+            "app": "todo-website"
         }
     },
-    "spec":
+    "spec": 
     {
-        "accessModes": 
+        "type": "LoadBalancer",
+        "sessionAffinity": "ClientIP",
+        "ports": 
         [
-            "ReadWriteOnce"
-        ],
-        "storageClassName": "data",
-        "resources": 
-        {
-            "requests":
             {
-                "storage": "10Mi"
+                "name": "http",
+                "port": 3000,
+                "nodePort": 30001,
+                "protocol": "TCP"
+            }
+        ],
+        "selector":
+        {
+            "app": "todo-website"
+        }
+    }
+}
+
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": 
+    {
+        "name": "frontend-pod",
+        "labels": 
+        {
+            "app": "todo-website"
+        }
+    },
+    "spec": 
+    {
+        "selector": 
+        {
+            "matchLabels":
+            {
+                "app": "todo-website"
+            }
+        },
+        "replicas": 1,
+        "template": 
+        {
+            "metadata":
+            {
+                "labels": 
+                {
+                    "app": "todo-website"
+                }
+            },
+            "spec":
+            {
+                "containers":
+                [
+                    {
+                        "name": "frontend",
+                        "image": "soblbth/todo-webpage:latest",
+                        "imagePullPolicy": "Always",
+                        "env": 
+                        [
+                            {
+                                "name": "FLASK_RUN_PORT",
+                                "value": "8000"
+                            },
+                            {
+                                "name": "BACKEND",
+                                "value": "Some missing ip"
+                            },
+                            {
+                                "name": "BACKEND_PORT",
+                                "value": "And a missing port"
+                            }
+                        ],
+                        "ports": 
+                        [
+                            {
+                                "containerPort": 8000
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
+
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": 
+    {
+        "name": "backend-pod",
+        "labels": 
+        {
+            "app": "todo-server"
+        }
+    },
+    "spec": 
+    {
+        "selector": 
+        {
+            "matchLabels":
+            {
+                "app": "todo-server"
+            }
+        },
+        "replicas": 1,
+        "template": 
+        {
+            "metadata":
+            {
+                "labels": 
+                {
+                    "app": "todo-server"
+                }
+            },
+            "spec":
+            {
+                "containers":
+                [
+                    {
+                        "name": "frontend",
+                        "image": "soblbth/todo-handler:latest",
+                        "imagePullPolicy": "Always",
+                        "env": 
+                        [
+                            {
+                                "name": "FLASK_RUN_PORT",
+                                "value": "8001"
+                            },
+                            {
+                                "name": "DATABASE_HOST",
+                                "value": "MYSQL_SERVICE_HOST"
+                            },
+                            {
+                                "name": "DATABASE_PORT",
+                                "value": "3306"
+                            },
+                            {
+                                "name": "DATABSE_USER",
+                                "value": "not_root"
+                            },
+                            {
+                                "name": "DATABASE_PASSWORD",
+                                "value": "example"
+                            },
+                            {
+                                "name": "DATABASE_DB",
+                                "value" : "Notebook"
+                            }
+                        ],
+                        "ports": 
+                        [
+                            {
+                                "containerPort": 8001
+                            }
+                        ]
+                    }
+                ]
             }
         }
     }
