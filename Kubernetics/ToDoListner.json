@@ -136,7 +136,8 @@
                 "name": "http",
                 "port": 3000,
                 "nodePort": 30001,
-                "protocol": "TCP"
+                "protocol": "TCP",
+                "targetPort": 8000
             }
         ],
         "selector":
